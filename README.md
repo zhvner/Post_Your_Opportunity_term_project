@@ -25,7 +25,7 @@
 - As a user, I want to be able to _**mark an opportunity as available**_
 - As a user, I want to be able to _**mark an opportunity as expired**_
 - As a user, I want to be able to _**remove an opportunity from my system**_
-- As a user, I want to be able to _**see the number of opportunities available**_
+- As a user, I want to be able to _**edit opportunities available**_
 - As a user, I want to be able to _**filter out opportunities available according to my interests**_
 
 
