@@ -16,7 +16,7 @@ public class OpportunityPost {
         expired
     }
 
-//    private static final String INTERNS = "internship";
+    //    private static final String INTERNS = "internship";
     private String postName;
     private OpportunityType opportunityType;
     private Date dueDate;
@@ -24,41 +24,43 @@ public class OpportunityPost {
 
     public OpportunityPost(String postName, OpportunityType opportunityType,
                            Date dueDate, Availability status) {
-       this.postName = postName;
-       this.opportunityType = opportunityType;
-       this.dueDate = dueDate;
-       this.status = status;
+        this.postName = postName;
+        this.opportunityType = opportunityType;
+        this.dueDate = dueDate;
+        this.status = status;
     }
 
 
     public String getPostName() {
         return this.postName;
     }
-    public OpportunityType getOpportunityType(){
+
+    public OpportunityType getOpportunityType() {
         return this.opportunityType;
     }
 
-    public Date getDueDate(){
+    public Date getDueDate() {
         return dueDate;
     }
 
-    public Availability getStatus(){
+    public Availability getStatus() {
         return status;
     }
 
-    public void setPostName(String name){
+    public void setPostName(String name) {
         postName = name;
     }
 
-    public void setOpportunityType (OpportunityType type){
+    public void setOpportunityType(OpportunityType type) {
         opportunityType = type;
     }
 
-    public void setDueDate(Date date){
+    public void setDueDate(Date date) {
         dueDate = date;
     }
-    public void setStatus(Availability st){
-        status =st;
+
+    public void setStatus(Availability st) {
+        status = st;
     }
 
     /*
@@ -66,10 +68,10 @@ public class OpportunityPost {
      */
     @Override
     public String toString() {
-        String output = "Name: " + postName +
-                " Type: " + opportunityType +
-                " Date: " + dueDate.toString() +
-                " Status: " + status;
+        String output = "Name: " + postName
+                + " Type: " + opportunityType
+                + " Date: " + dueDate.toString()
+                + " Status: " + status;
         return output;
     }
 }
