@@ -19,7 +19,6 @@
 ### **Task 3**
 
 #### _user stories_ :
-- As a user, I want to be able to _**sign up and sign in to the system**_
 - As a user, I want to be able to _**add an opportunity to the system**_
 - As a user, I want to be able to _**view the list of opportunities in the platform**_
 - As a user, I want to be able to _**mark an opportunity as available**_
@@ -27,6 +26,10 @@
 - As a user, I want to be able to _**remove an opportunity from my system**_
 - As a user, I want to be able to _**edit opportunities available**_
 - As a user, I want to be able to _**filter out opportunities available according to my interests**_
+- As a user, I want to be able to _**save my opportunity list to file**_
+- As a user, I want to be able to _**be able to load my opportunity list from file**_
+- As a user, when I select the quit option from the application menu, 
+I want to be reminded to save my opportunity list to file and have the option to do so or not.
 
 
 

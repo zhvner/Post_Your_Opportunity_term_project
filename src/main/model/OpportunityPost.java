@@ -69,9 +69,9 @@ public class OpportunityPost {
     @Override
     public String toString() {
         String output = "Name: " + postName
-                + " Type: " + opportunityType
-                + " Date: " + dueDate.toString()
-                + " Status: " + status;
+                + ", Type: " + opportunityType
+                + ", Date: " + dueDate.toString()
+                + ", Status: " + status;
         return output;
     }
 }

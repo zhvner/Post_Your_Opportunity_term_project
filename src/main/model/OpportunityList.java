@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class OpportunityList {
-    private List<OpportunityPost> opportunityPosts;
+    private final List<OpportunityPost> opportunityPosts;
 
     public OpportunityList() {
         opportunityPosts = new ArrayList<>();

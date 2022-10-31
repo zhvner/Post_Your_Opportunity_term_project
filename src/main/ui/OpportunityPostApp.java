@@ -63,16 +63,22 @@ public class OpportunityPostApp {
     // MODIFIES: this
     // EFFECTS: processes user command
     private void processCommand(String command) {
-        if (command.equals("a")) {
-            doAddPost();
-        } else if (command.equals("r")) {
-            doRemovePost();
-        } else if (command.equals("l")) {
-            doListPosts();
-        } else if (command.equals("e")) {
-            doEdit();
-        } else {
-            System.out.println("Selection not valid...");
+        switch (command) {
+            case "a":
+                doAddPost();
+                break;
+            case "r":
+                doRemovePost();
+                break;
+            case "l":
+                doListPosts();
+                break;
+            case "e":
+                doEdit();
+                break;
+            default:
+                System.out.println("Selection not valid...");
+                break;
         }
     }
 
@@ -80,7 +86,7 @@ public class OpportunityPostApp {
     // EFFECTS: edits existing post
     private void doEdit() {
         System.out.println("Which opportunity do you want to edit?");
-        Integer n = input.nextInt();
+        int n = input.nextInt();
         opportunityList.selectOpp(n);
         String name = getName();
         OpportunityPost.OpportunityType type = getOpportunityType();
@@ -101,7 +107,7 @@ public class OpportunityPostApp {
     // EFFECTS: removes posts
     private void doRemovePost() {
         System.out.println("Which opportunity do you want to remove?");
-        Integer n = input.nextInt();
+        int n = input.nextInt();
         opportunityList.removeOpp(n - 1);
         System.out.println("Opportunity has been removed! \n");
     }
@@ -132,14 +138,19 @@ public class OpportunityPostApp {
         System.out.println("\tv -> volunteering");
         String type = input.next();
         OpportunityPost.OpportunityType opportunityType = OpportunityPost.OpportunityType.internship;
-        if (type.equals("i")) {
-            opportunityType = OpportunityPost.OpportunityType.internship;
-        } else if (type.equals("d")) {
-            opportunityType = OpportunityPost.OpportunityType.designTeam;
-        } else if (type.equals("r")) {
-            opportunityType = OpportunityPost.OpportunityType.research;
-        } else if (type.equals("v")) {
-            opportunityType = OpportunityPost.OpportunityType.volunteering;
+        switch (type) {
+            case "i":
+                opportunityType = OpportunityPost.OpportunityType.internship;
+                break;
+            case "d":
+                opportunityType = OpportunityPost.OpportunityType.designTeam;
+                break;
+            case "r":
+                opportunityType = OpportunityPost.OpportunityType.research;
+                break;
+            case "v":
+                opportunityType = OpportunityPost.OpportunityType.volunteering;
+                break;
         }
         return opportunityType;
     }
