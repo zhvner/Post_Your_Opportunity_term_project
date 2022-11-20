@@ -1,0 +1,17 @@
+{
+    "name": "My opportunity list",
+    "opportunities": [
+        {
+            "post name": "need a partner",
+            "due date": 1669795200000,
+            "opportunity type": "designTeam",
+            "status": "available"
+        },
+        {
+            "post name": "need a dog shelter volunteer",
+            "due date": 1675152000000,
+            "opportunity type": "volunteering",
+            "status": "available"
+        }
+    ]
+}

@@ -1,20 +1,35 @@
 package ui;
 
+import model.Availability;
 import model.OpportunityList;
 import model.OpportunityPost;
+import model.OpportunityType;
+import persistence.JsonReader;
+import persistence.JsonWriter;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Date;
+import java.util.List;
 import java.util.Scanner;
 
-import static model.OpportunityPost.Availability.available;
-import static model.OpportunityPost.Availability.expired;
+import static model.Availability.*;
+
 
 public class OpportunityPostApp {
+    private static final String JSON_STORE = "./data/OpportunityList.json";
     private Scanner input;
     private OpportunityList opportunityList;
+    private final JsonWriter jsonWriter;
+    private final JsonReader jsonReader;
+
 
     // EFFECTS: runs the teller application
-    public OpportunityPostApp() {
+    public OpportunityPostApp() throws FileNotFoundException {
+        input = new Scanner(System.in);
+        opportunityList = new OpportunityList("");
+        jsonWriter = new JsonWriter(JSON_STORE);
+        jsonReader = new JsonReader(JSON_STORE);
         runApp();
     }
 
@@ -22,7 +37,7 @@ public class OpportunityPostApp {
     // EFFECTS: processes user input
     private void runApp() {
         boolean keepGoing = true;
-        String command;
+        String command = null;
 
         init();
 
@@ -46,7 +61,7 @@ public class OpportunityPostApp {
     private void init() {
         input = new Scanner(System.in);
         input.useDelimiter("\n");
-        opportunityList = new OpportunityList();
+        opportunityList = new OpportunityList(opportunityList.getName());
     }
 
     // EFFECTS: displays menu of options to user
@@ -54,7 +69,9 @@ public class OpportunityPostApp {
         System.out.println("\nSelect from:");
         System.out.println("\ta -> add post");
         System.out.println("\tr -> remove post");
-        System.out.println("\tl -> see posts list");
+        System.out.println("\tp -> print posts list"); //print
+        System.out.println("\ts -> save work room to file"); //new
+        System.out.println("\tl -> load work room from file"); //new
         System.out.println("\te -> edit the post");
         System.out.println("\tq -> quit");
     }
@@ -70,28 +87,37 @@ public class OpportunityPostApp {
             case "r":
                 doRemovePost();
                 break;
-            case "l":
+            case "p":
                 doListPosts();
+                break;
+            case "s":
+                doSavePosts();
+                break;
+            case "l":
+                doLoadPosts();
                 break;
             case "e":
                 doEdit();
                 break;
             default:
-                System.out.println("Selection not valid...");
+                System.out.println("Selection is not valid...");
                 break;
         }
     }
+
 
     // MODIFIES: this
     // EFFECTS: edits existing post
     private void doEdit() {
         System.out.println("Which opportunity do you want to edit?");
         int n = input.nextInt();
+        opportunityList.removeOpp(new OpportunityPost(getName(),getOpportunityType(),
+                getDate(),getStatus()));
         opportunityList.selectOpp(n);
         String name = getName();
-        OpportunityPost.OpportunityType type = getOpportunityType();
+        OpportunityType type = getOpportunityType();
         Date date = getDate();
-        OpportunityPost.Availability status = getStatus();
+        Availability status = getStatus();
         OpportunityPost op = new OpportunityPost(name, type, date, status);
         opportunityList.addOpp(op);
         System.out.println("Opportunity has been added! \n");
@@ -100,25 +126,38 @@ public class OpportunityPostApp {
     // MODIFIES: this
     // EFFECTS: lists existing posts
     private void doListPosts() {
-        opportunityList.printOpportunities();
+        List<OpportunityPost> opportunityPosts = opportunityList.getOpportunityPosts();
+//        for (OpportunityPost op : opportunityPosts) {
+//            for (int i = 0; i < opportunityPosts.size(); i++) {
+//                System.out.println(i++ + " : " + opportunityPosts.get(i).toString());
+//            }
+//        }
+        for (OpportunityPost op : opportunityPosts) {
+            System.out.println(op);
+        }
     }
 
     // MODIFIES: this
     // EFFECTS: removes posts
-    private void doRemovePost() {
-        System.out.println("Which opportunity do you want to remove?");
-        int n = input.nextInt();
-        opportunityList.removeOpp(n - 1);
-        System.out.println("Opportunity has been removed! \n");
+//    private void doRemovePost() {
+//        System.out.println("Which opportunity do you want to remove?");
+//        int n = input.nextInt();
+//        opportunityList.removeOpp(n - 1);
+//        System.out.println("Opportunity has been removed! \n");
+//    }
+
+    private void doRemovePost(){
+
     }
 
     // MODIFIES: this
     // EFFECTS: adds a post
     private void doAddPost() {
         String name = getName();
-        OpportunityPost.OpportunityType type = getOpportunityType();
+        OpportunityType type = getOpportunityType();
         Date date = getDate();
-        OpportunityPost.Availability status = getStatus();
+        Availability status = getStatus();
+
         OpportunityPost op = new OpportunityPost(name, type, date, status);
         opportunityList.addOpp(op);
         System.out.println("Opportunity has been added! \n");
@@ -130,30 +169,34 @@ public class OpportunityPostApp {
         return name;
     }
 
-    private OpportunityPost.OpportunityType getOpportunityType() {
-        System.out.println("What's the type fo the post?");
+    private OpportunityType getOpportunityType() {
+        System.out.println("What's the type for your post?");
         System.out.println("\ti -> internship");
         System.out.println("\td -> design team");
         System.out.println("\tr -> research");
         System.out.println("\tv -> volunteering");
         String type = input.next();
-        OpportunityPost.OpportunityType opportunityType = OpportunityPost.OpportunityType.internship;
+        OpportunityType opportunityType = null;
         switch (type) {
             case "i":
-                opportunityType = OpportunityPost.OpportunityType.internship;
+                opportunityType = OpportunityType.internship;
                 break;
             case "d":
-                opportunityType = OpportunityPost.OpportunityType.designTeam;
+                opportunityType = OpportunityType.designTeam;
                 break;
             case "r":
-                opportunityType = OpportunityPost.OpportunityType.research;
+                opportunityType = OpportunityType.research;
                 break;
             case "v":
-                opportunityType = OpportunityPost.OpportunityType.volunteering;
+                opportunityType = OpportunityType.volunteering;
+                break;
+            default:
+                System.out.println("Selection is not valid...");
                 break;
         }
         return opportunityType;
     }
+
 
     private Date getDate() {
         System.out.println("What year is it due?");
@@ -167,18 +210,42 @@ public class OpportunityPostApp {
         return date;
     }
 
-    private OpportunityPost.Availability getStatus() {
+    private Availability getStatus() {
         System.out.println("What is the status of the opportunity?");
         System.out.println("\ta -> available");
         System.out.println("\te -> expired");
         String status = input.next();
-        OpportunityPost.Availability availability = available;
+        Availability availability = available;
         if (status.equals("a")) {
             availability = available;
         } else if (status.equals("e")) {
             availability = expired;
+        } else {
+            System.out.println("Selection is not valid...");
         }
         return availability;
     }
+
+    private void doLoadPosts() {
+        try {
+            opportunityList = jsonReader.read();
+            System.out.println("Loaded " + opportunityList.getName() + " from " + JSON_STORE);
+        } catch (IOException e) {
+            System.out.println("Unable to read from file: " + JSON_STORE);
+        }
+    }
+
+    private void doSavePosts() {
+        try {
+            jsonWriter.open();
+            jsonWriter.write(opportunityList);
+            jsonWriter.close();
+            System.out.println("Saved " + opportunityList.getName() + "to" + JSON_STORE);
+        } catch (FileNotFoundException e) {
+            System.out.println("Unable to write to file: " + JSON_STORE);
+        }
+
+    }
+
 
 }

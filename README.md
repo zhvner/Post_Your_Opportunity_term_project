@@ -25,11 +25,13 @@
 - As a user, I want to be able to _**mark an opportunity as expired**_
 - As a user, I want to be able to _**remove an opportunity from my system**_
 - As a user, I want to be able to _**edit opportunities available**_
-- As a user, I want to be able to _**filter out opportunities available according to my interests**_
+
+## **PHASE 2**
+### **Task 2**
 - As a user, I want to be able to _**save my opportunity list to file**_
-- As a user, I want to be able to _**be able to load my opportunity list from file**_
+- As a user, I want to be able to _**load my opportunity list from file when lists selected**_
 - As a user, when I select the quit option from the application menu, 
-I want to be reminded to save my opportunity list to file and have the option to do so or not.
+I want to _**be reminded to save my opportunity list to file and have the option to do so or not.**_
 
 
 

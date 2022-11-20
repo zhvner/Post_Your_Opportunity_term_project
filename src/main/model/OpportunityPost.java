@@ -1,22 +1,13 @@
 package model;
 
+import org.json.JSONObject;
+
 import java.util.Date;
 
-public class OpportunityPost {
+import persistence.Writable;
 
-    public enum OpportunityType {
-        internship,
-        designTeam,
-        research,
-        volunteering
-    }
+public class OpportunityPost implements Writable {
 
-    public enum Availability {
-        available,
-        expired
-    }
-
-    //    private static final String INTERNS = "internship";
     private String postName;
     private OpportunityType opportunityType;
     private Date dueDate;
@@ -74,4 +65,18 @@ public class OpportunityPost {
                 + ", Status: " + status;
         return output;
     }
+
+    @Override
+    public JSONObject toJson() {
+        long time = 0;
+        JSONObject json = new JSONObject();
+        json.put("post name", postName);
+        json.put("opportunity type", opportunityType);
+        json.put("due date", Long.valueOf(dueDate.getTime()));
+        json.put("status", status);
+        return json;
+    }
 }
+
+
+
