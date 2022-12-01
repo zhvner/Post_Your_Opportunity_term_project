@@ -1,22 +1,40 @@
 package model;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+import persistence.Writable;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class OpportunityList {
+public class OpportunityList implements Writable {
+    //private final OpportunityPost opportunityPost;
+    private final String name;
     private final List<OpportunityPost> opportunityPosts;
 
-    public OpportunityList() {
+    public OpportunityList(String name) {
+        //opportunityPost = new OpportunityPost();
+        this.name = name;
         opportunityPosts = new ArrayList<>();
     }
 
+    public String getName() {
+        return name;
+    }
 
     public List<OpportunityPost> getOpportunityPosts() {
         return opportunityPosts;
     }
 
     public OpportunityPost selectOpp(int n) {
-        return opportunityPosts.get(n);
+        if (opportunityPosts.get(n - 1) == null) {
+            throw new IndexOutOfBoundsException("Opportunities not initialized");
+        }
+        return opportunityPosts.get(n - 1);
+    }
+
+    public boolean containsOp(OpportunityPost op) {
+        return opportunityPosts.contains(op);
     }
 
     public void addOpp(OpportunityPost op) {
@@ -24,12 +42,27 @@ public class OpportunityList {
     }
 
     public void removeOpp(int n) {
-        opportunityPosts.remove(n);
+        opportunityPosts.remove(n - 1);
     }
 
-    public void printOpportunities() {
-        for (int i = 0; i < opportunityPosts.size(); i++) {
-            System.out.println(i + 1 + " : " + opportunityPosts.get(i).toString());
+
+    public int numOpportunities() {
+        return opportunityPosts.size();
+    }
+
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("name", name);
+        json.put("opportunities", opportunityPostsToJson());
+        return json;
+    }
+
+    private JSONArray opportunityPostsToJson() {
+        JSONArray jsonArray = new JSONArray();
+
+        for (OpportunityPost op : opportunityPosts) {
+            jsonArray.put(op.toJson());
         }
+        return jsonArray;
     }
 }

@@ -22,6 +22,7 @@ public class OpportunityPostApp {
     private OpportunityList opportunityList;
     private final JsonWriter jsonWriter;
     private final JsonReader jsonReader;
+    private OpportunityType opportunityType;
 
 
     // EFFECTS: runs the teller application
@@ -81,27 +82,13 @@ public class OpportunityPostApp {
     // EFFECTS: processes user command
     private void processCommand(String command) {
         switch (command) {
-            case "a":
-                doAddPost();
-                break;
-            case "r":
-                doRemovePost();
-                break;
-            case "p":
-                doListPosts();
-                break;
-            case "s":
-                doSavePosts();
-                break;
-            case "l":
-                doLoadPosts();
-                break;
-            case "e":
-                doEdit();
-                break;
-            default:
-                System.out.println("Selection is not valid...");
-                break;
+            case "a" -> doAddPost();
+            case "r" -> doRemovePost();
+            case "p" -> doListPosts();
+            case "s" -> doSavePosts();
+            case "l" -> doLoadPosts();
+            case "e" -> doEdit();
+            default -> System.out.println("Selection is not valid...");
         }
     }
 
@@ -111,9 +98,8 @@ public class OpportunityPostApp {
     private void doEdit() {
         System.out.println("Which opportunity do you want to edit?");
         int n = input.nextInt();
-        opportunityList.removeOpp(new OpportunityPost(getName(),getOpportunityType(),
-                getDate(),getStatus()));
-        opportunityList.selectOpp(n);
+        opportunityList.removeOpp(n-1);
+        opportunityList.selectOpp(n-1);
         String name = getName();
         OpportunityType type = getOpportunityType();
         Date date = getDate();
@@ -127,28 +113,31 @@ public class OpportunityPostApp {
     // EFFECTS: lists existing posts
     private void doListPosts() {
         List<OpportunityPost> opportunityPosts = opportunityList.getOpportunityPosts();
+            for (int i = 0; i < opportunityPosts.size(); i++) {
+                try{
+                    System.out.println(i+1 + " : " + opportunityPosts.get(i).toString());
+                }catch (IndexOutOfBoundsException e){
+                    System.out.println("not valid opportunity list");
+                }
+            }
+        //}
 //        for (OpportunityPost op : opportunityPosts) {
-//            for (int i = 0; i < opportunityPosts.size(); i++) {
-//                System.out.println(i++ + " : " + opportunityPosts.get(i).toString());
-//            }
-//        }
-        for (OpportunityPost op : opportunityPosts) {
-            System.out.println(op);
-        }
+//            System.out.println(op);
     }
+
 
     // MODIFIES: this
     // EFFECTS: removes posts
-//    private void doRemovePost() {
-//        System.out.println("Which opportunity do you want to remove?");
-//        int n = input.nextInt();
-//        opportunityList.removeOpp(n - 1);
-//        System.out.println("Opportunity has been removed! \n");
-//    }
-
-    private void doRemovePost(){
-
+    private void doRemovePost() {
+        System.out.println("Which opportunity do you want to remove?");
+        int n = input.nextInt();
+        opportunityList.removeOpp(n - 1);
+        System.out.println("Opportunity has been removed! \n");
     }
+
+//    private void doRemovePost(){
+//
+//    }
 
     // MODIFIES: this
     // EFFECTS: adds a post
@@ -176,26 +165,16 @@ public class OpportunityPostApp {
         System.out.println("\tr -> research");
         System.out.println("\tv -> volunteering");
         String type = input.next();
-        OpportunityType opportunityType = null;
         switch (type) {
-            case "i":
-                opportunityType = OpportunityType.internship;
-                break;
-            case "d":
-                opportunityType = OpportunityType.designTeam;
-                break;
-            case "r":
-                opportunityType = OpportunityType.research;
-                break;
-            case "v":
-                opportunityType = OpportunityType.volunteering;
-                break;
-            default:
-                System.out.println("Selection is not valid...");
-                break;
+            case "i" -> opportunityType = OpportunityType.internship;
+            case "d" -> opportunityType = OpportunityType.designTeam;
+            case "r" -> opportunityType = OpportunityType.research;
+            case "v" -> opportunityType = OpportunityType.volunteering;
+            default -> System.out.println("Selection is not valid...");
         }
         return opportunityType;
     }
+
 
 
     private Date getDate() {
