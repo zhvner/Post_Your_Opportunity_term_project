@@ -26,6 +26,10 @@ public class OpportunityList implements Writable {
         return opportunityPosts;
     }
 
+//    public OpportunityPost getOpportunityPostByIndex(int index) {
+//        return opportunityPosts.get(index);
+//    }
+
     public OpportunityPost selectOpp(int n) {
         if (opportunityPosts.get(n - 1) == null) {
             throw new IndexOutOfBoundsException("Opportunities not initialized");

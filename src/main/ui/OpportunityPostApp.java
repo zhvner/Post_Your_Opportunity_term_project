@@ -152,6 +152,7 @@ public class OpportunityPostApp {
         System.out.println("Opportunity has been added! \n");
     }
 
+
     private String getName() {
         System.out.println("What's the name of the post?");
         String name = input.next();
@@ -205,15 +206,21 @@ public class OpportunityPostApp {
         return availability;
     }
 
+    // MODIFIES: this
+    // EFFECTS: loads the opportunity posts from OpportunityList.json file if it exists,
+    // otherwise initialize constructor as default
     private void doLoadPosts() {
         try {
             opportunityList = jsonReader.read();
             System.out.println("Loaded " + opportunityList.getName() + " from " + JSON_STORE);
         } catch (IOException e) {
             System.out.println("Unable to read from file: " + JSON_STORE);
+            opportunityList = new OpportunityList("My list");
         }
     }
 
+    // EFFECTS: saves state of the opportunity list with the user added posts
+    // inspired by TellerApp https://github.students.cs.ubc.ca/CPSC210/TellerApp
     private void doSavePosts() {
         try {
             jsonWriter.open();
