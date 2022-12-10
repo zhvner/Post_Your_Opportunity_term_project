@@ -33,6 +33,14 @@
 - As a user, when I select the quit option from the application menu, 
 I want to _**be reminded to save my opportunity list to file and have the option to do so or not.**_
 
-## **PHASE 2**
+## **PHASE 4**
+### **Task 2**
 
+
+## **PHASE 4**
+### **Task 3**
+Reflections on refactoring and improvements of design:
+- Splitting ActionListener class in the GUI class into multiple separate classes to avoid 
+overwhelming of each button actions
+- Implementing an abstract class 
 

@@ -34,6 +34,7 @@ public class OpportunityList implements Writable {
         if (opportunityPosts.get(n - 1) == null) {
             throw new IndexOutOfBoundsException("Opportunities not initialized");
         }
+        EventLog.getInstance().logEvent(new Event("Opportunity is selected" + opportunityPosts.get(n - 1)));
         return opportunityPosts.get(n - 1);
     }
 
@@ -42,11 +43,25 @@ public class OpportunityList implements Writable {
     }
 
     public void addOpp(OpportunityPost op) {
+        //EventLog.getInstance().logEvent(new Event("Opportunity is added " + op));
         opportunityPosts.add(op);
     }
 
+
+
     public void removeOpp(int n) {
+        EventLog.getInstance().logEvent(new Event("Opportunity is removed "
+                                        + opportunityPosts.get(n)));
         opportunityPosts.remove(n - 1);
+    }
+
+    public boolean removeOp(OpportunityPost post) {
+        if (containsOp(post)) {
+            opportunityPosts.remove(post);
+            return false;
+        } else {
+            return true;
+        }
     }
 
 

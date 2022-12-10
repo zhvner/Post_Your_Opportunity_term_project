@@ -13,12 +13,22 @@ public class OpportunityPost implements Writable {
     private Date dueDate;
     private Availability status;
 
+    private String typeText;
+    private String date;
+    private String statusText;
+
     public OpportunityPost(String postName, OpportunityType opportunityType,
                            Date dueDate, Availability status) {
         this.postName = postName;
         this.opportunityType = opportunityType;
         this.dueDate = dueDate;
         this.status = status;
+    }
+
+    public OpportunityPost(String postName,String typeText, String date, String status){
+        this.postName = postName;
+        this.typeText = typeText;
+        this.statusText = status;
     }
 
 

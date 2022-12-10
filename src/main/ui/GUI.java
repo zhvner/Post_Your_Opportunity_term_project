@@ -41,6 +41,7 @@ public class GUI extends JFrame implements ActionListener {
     private JButton button7;
 
     private JPanel opportunityListPanel; //carListingsPanel
+    private static final FlowLayout listPanelLayout = new FlowLayout();
     private JLabel posts; //listings
     private boolean posted; // listed
 
@@ -100,7 +101,9 @@ public class GUI extends JFrame implements ActionListener {
     }
 
     private void makeOppListPanel() {
-        opportunityListPanel = new JPanel(new FlowLayout());
+        opportunityListPanel = new JPanel();
+        opportunityListPanel.setLayout(listPanelLayout);
+        listPanelLayout.setAlignment(FlowLayout.TRAILING);
         JScrollPane scroll = new JScrollPane(posts, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
                 JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 
@@ -128,11 +131,11 @@ public class GUI extends JFrame implements ActionListener {
 
     private void makePostOppPanel() {
         postsPage = new JPanel(new GridLayout(0, 2));
-        JButton mainButtonMenu = new JButton("Return to Main Menu");
-        mainButtonMenu.setActionCommand("Return to Main menu");
-        mainButtonMenu.addActionListener(this);
+        JButton returnButton = new JButton("Return to Main Menu");
+        returnButton.setActionCommand("Return to Main menu");
+        returnButton.addActionListener(this);
 
-        addMenuButton(mainButtonMenu, postsPage);
+        addMenuButton(returnButton, postsPage);
 
         createPostsPage();
         addLabelsToPosts();
@@ -351,6 +354,7 @@ public class GUI extends JFrame implements ActionListener {
 
     }
 
+
     private void addOppToList() {
         opportunityList = new OpportunityList("My list");
         try {
@@ -407,7 +411,7 @@ public class GUI extends JFrame implements ActionListener {
             writer.write(opportunityList);
             writer.close();
             System.out.println("Saved " + opportunityList.getName() + "to" + OPPORTUNITY_LIST);
-        } catch (NullPointerException e) {
+        } catch (Exception e) {
             System.out.println("Please load the file before trying to save it");
         }
     }
