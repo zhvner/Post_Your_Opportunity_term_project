@@ -17,6 +17,7 @@ public class OpportunityPost implements Writable {
     private String date;
     private String statusText;
 
+    // Creates a new opportunity post with the following arguments
     public OpportunityPost(String postName, OpportunityType opportunityType,
                            Date dueDate, Availability status) {
         this.postName = postName;
@@ -25,6 +26,7 @@ public class OpportunityPost implements Writable {
         this.status = status;
     }
 
+    // Creates a new printed post with the following arguments for GUI print
     public OpportunityPost(String postName,String typeText, String date, String status){
         this.postName = postName;
         this.typeText = typeText;
