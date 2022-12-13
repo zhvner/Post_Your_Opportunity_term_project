@@ -39,6 +39,7 @@ public class JsonReader {
         return opportunityList;
     }
 
+    //EFFECTS: Adds opportunity list to the jsonArray
     private void addOpportunities(OpportunityList opportunityList, JSONObject jsonObject) {
         JSONArray jsonArray = jsonObject.getJSONArray("opportunities");
         for (Object json : jsonArray) {
@@ -47,6 +48,7 @@ public class JsonReader {
         }
     }
 
+    // EFFECTS: adds an opportunity post parameters into jsonObject and adds to it to the list
     private void addOpportunity(OpportunityList opportunityList, JSONObject jsonObject) {
         String postName = jsonObject.getString("post name");
         OpportunityType opportunityType = OpportunityType.valueOf(jsonObject.getString("opportunity type"));

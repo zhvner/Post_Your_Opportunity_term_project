@@ -25,9 +25,9 @@ public class GUI3 extends JFrame implements ActionListener {
 
     private OpportunityList opportunityList;
     private OpportunityPost post;
-    private final String[] buttonNames = {"See current posts", "Create a post", "Remove a post", "Save a post",
-            "Edit post", "Exit app"};
-    private final String[] actionCommands = {"see", "create", "remove", "save", "edit", "exit"};
+    private final String[] buttonNames = {"See current posts", "Create a post",
+            "Remove a post", "Save a post", "Exit app"};
+    private final String[] actionCommands = {"see", "create", "remove", "save", "exit"};
 
     private final JLabel posts = new JLabel();
 
@@ -56,7 +56,7 @@ public class GUI3 extends JFrame implements ActionListener {
     private boolean posted;
     JLabel postedBLN;
 
-
+    //EFFECTS: Makes several JFrames with different attributes
     public GUI3() {
         initializeMenu();
         makeOppListPanel();
@@ -213,6 +213,7 @@ public class GUI3 extends JFrame implements ActionListener {
         addPostedLabel();
     }
 
+
     //EFFECTS: creates and adds to JFrame new jlabels for post name
     private void addPostName() {
         //create post
@@ -223,7 +224,8 @@ public class GUI3 extends JFrame implements ActionListener {
         postsPage.add(t1);
     }
 
-    //MODIFIES: selectedType
+    //CITATION: modeled from https://www.geeksforgeeks.org/java-swing-jcombobox-examples/
+    //MODIFIES: selectedType, this
     //EFFECTS: creates and adds to JFrame new JLabels, JComboBox for opportunity type
     private void typeToText() {
         JLabel selectType = new JLabel("SELECT OPPORTUNITY TYPE: ");
@@ -248,7 +250,9 @@ public class GUI3 extends JFrame implements ActionListener {
         postsPage.add(selectedType);
     }
 
-    //MODIFIES: selectedDueDate
+
+    //CITATION: modeled from https://stackoverflow.com/questions/54069626/how-to-use-com-toedter-calendar-jdatechooser
+    //MODIFIES: selectedDueDate, this
     //EFFECTS: creates and adds to JFrame new JLabels, JDateChooser for opportunity due date
     private void addDueDate() {
         JLabel selectDueDate = new JLabel("SELECT DUE DATE: ");
@@ -272,7 +276,8 @@ public class GUI3 extends JFrame implements ActionListener {
         postsPage.add(selectedDueDate);
     }
 
-    //MODIFIES: selectedStatus
+    //CITATION: modeled from https://www.geeksforgeeks.org/java-swing-jcombobox-examples/
+    //MODIFIES: selectedStatus, this
     //EFFECTS: creates and adds to JFrame new JLabels, JComboBox for opportunity status
     private void statusToText() {
         JLabel selectStatus = new JLabel("SELECT AVAILABILITY:");
@@ -306,8 +311,6 @@ public class GUI3 extends JFrame implements ActionListener {
         postsPage.add(postedLabel);
         postsPage.add(postedBLN);
     }
-
-
 
 
     @Override
@@ -345,11 +348,11 @@ public class GUI3 extends JFrame implements ActionListener {
         postedBLN.setText(String.valueOf(true));
 //        try {
         post = new OpportunityPost(t1.getText(), selectedType.getText(),
-                    selectedDueDate.getText(),
-                    selectedStatus.getText());
+                selectedDueDate.getText(),
+                selectedStatus.getText());
         opportunityList.addOpp(post);
         posts.setText("<html><pre>Current opportunity posts: \n" + opportunityList.getOpportunityPosts().toString()
-                    + "\n</pre></html>");
+                + "\n</pre></html>");
         scroll.setToolTipText(String.valueOf(posts));
 //        } catch (NumberFormatException e) {
 //            System.out.println("Invalid input! Try again!");
@@ -393,12 +396,15 @@ public class GUI3 extends JFrame implements ActionListener {
         }
     }
 
+
+    //EFFECTS: adds opportunityListPanel to the screen and others set to false
     private void initializeOppPostsPanel() {
         opportunityListPanel.setVisible(true);
         mainMenuFrame.setVisible(false);
         postsPage.setVisible(false);
     }
 
+    //EFFECTS: adds postsPage to the screen and others set to false
     private void initializeCreatePostPanel() {
         postsPage.setVisible(true);
         opportunityListPanel.setVisible(false);
@@ -407,12 +413,15 @@ public class GUI3 extends JFrame implements ActionListener {
 
     }
 
+    //EFFECTS: adds mainMenuFrame to the screen and others set to false
     private void returnToMainMenu() {
         mainMenuFrame.setVisible(true);
         opportunityListPanel.setVisible(false);
         postsPage.setVisible(false);
     }
 
+    //MODIFIES: this
+    //EFFECTS: Removes posts from active posts and prints message in opportunityListPanel
     private void removePost(OpportunityPost post) {
         try {
             opportunityList.removeOp(post);
@@ -428,10 +437,11 @@ public class GUI3 extends JFrame implements ActionListener {
         }
     }
 
+    //blank
     private void editPosts(OpportunityPost post) {
-        postsPage.setVisible(false);
-        opportunityListPanel.setVisible(false);
-        mainMenuFrame.setVisible(false);
-        editPostPanel.setVisible(true);
+//        postsPage.setVisible(false);
+//        opportunityListPanel.setVisible(false);
+//        mainMenuFrame.setVisible(false);
+//        editPostPanel.setVisible(true);
     }
 }

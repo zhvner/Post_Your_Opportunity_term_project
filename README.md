@@ -35,12 +35,24 @@ I want to _**be reminded to save my opportunity list to file and have the option
 
 ## **PHASE 4**
 ### **Task 2**
+Nothing is related to your events logged printed out when my program runs.
+
+The event log isn’t just a listener or an aspect around data persistence. 
+Event logs are useful for is consuming events from the system. In there, database only stores modifications, rather than the current state. 
+The current state is the obtained after applying all the stored modifications until the present moment. 
+This allows seeing the state of the data at any moment in the past. The data in event logs operate in non-data-modifying way,
+where the database only stores modifications, rather than the current state. 
+The current state is the obtained after applying all the stored modifications until the present moment. For this reason, 
+events logged did not printed out.
 
 
 ## **PHASE 4**
 ### **Task 3**
 Reflections on refactoring and improvements of design:
 - Splitting ActionListener class in the GUI class into multiple separate classes to avoid 
-overwhelming of each button actions
+overwhelming each button actions
 - Implementing an abstract class 
+- Refactor code to decrease coupling between OpportunityList and OpportunityPost
+- During GUI construction, particularly creating posts page, there were many repetitive tasks in adding certain buttons
+and other elements like JComboBox and converting it into
 

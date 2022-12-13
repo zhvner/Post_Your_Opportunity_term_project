@@ -1,0 +1,13 @@
+Index: src/main/ui/OpportunityPostApp.java
+===================================================================
+diff --git a/src/main/ui/OpportunityPostApp.java b/src/main/ui/OpportunityPostApp.java
+--- a/src/main/ui/OpportunityPostApp.java	
++++ b/src/main/ui/OpportunityPostApp.java	
+@@ -59,6 +59,7 @@
+         System.out.println("\tq -> quit");
+     }
+ 
++
+     // MODIFIES: this
+     // EFFECTS: processes user command
+     private void processCommand(String command) {

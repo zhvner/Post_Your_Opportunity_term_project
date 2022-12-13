@@ -7,11 +7,13 @@ import persistence.Writable;
 import java.util.ArrayList;
 import java.util.List;
 
+//represents a list of opportunity posts
 public class OpportunityList implements Writable {
     //private final OpportunityPost opportunityPost;
     private final String name;
     private final List<OpportunityPost> opportunityPosts;
 
+    //EFFECTS: Creates constructs a new ArrayList and list name
     public OpportunityList(String name) {
         //opportunityPost = new OpportunityPost();
         this.name = name;
@@ -38,23 +40,29 @@ public class OpportunityList implements Writable {
         return opportunityPosts.get(n - 1);
     }
 
+    // EFFECTS: returns true if the given post is in list,
+    //          else return false
     public boolean containsOp(OpportunityPost op) {
         return opportunityPosts.contains(op);
     }
 
+    // MODIFIES: this
+    // REQUIRES: adds a OpportunityPost object to the list
     public void addOpp(OpportunityPost op) {
         //EventLog.getInstance().logEvent(new Event("Opportunity is added " + op));
         opportunityPosts.add(op);
     }
 
 
-
+    // EFFECTS: removes a post with the given index
     public void removeOpp(int n) {
         EventLog.getInstance().logEvent(new Event("Opportunity is removed "
                                         + opportunityPosts.get(n)));
         opportunityPosts.remove(n - 1);
     }
 
+    // EFFECTS: returns false and removes the given post if it is in list,
+    //          else return true in GUI3
     public boolean removeOp(OpportunityPost post) {
         if (containsOp(post)) {
             opportunityPosts.remove(post);
@@ -69,12 +77,15 @@ public class OpportunityList implements Writable {
         return opportunityPosts.size();
     }
 
+    // EFFECTS: converts a list into a JSON object
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
         json.put("name", name);
         json.put("opportunities", opportunityPostsToJson());
         return json;
     }
+
+
 
     private JSONArray opportunityPostsToJson() {
         JSONArray jsonArray = new JSONArray();
